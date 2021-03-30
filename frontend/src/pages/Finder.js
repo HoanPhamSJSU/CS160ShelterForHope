@@ -24,8 +24,7 @@ const CustomerList = () => (
       }}
     >
       <Container maxWidth={false}>
-      <div>        
-        <Script url="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoHTyDmdCcffbqWPijvmRZSpuWKq8j-cE&libraries=places" onLoad={this.handleScriptLoad}/>  
+      <div> 
         {/* <GoogleMaps></GoogleMaps> */}
         <Box sx={{ pt: 3 }}><Map /></Box>
         
