@@ -18,32 +18,37 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 const products = [
   {
     id: uuid(),
-    name: 'Dropbox',
-    imageUrl: '/static/images/products/product_1.png',
+    name: 'HomeFirst',
+    imageUrl: '/static/images/products/shelter3.png',
+    rating:'5 stars',
     updatedAt: moment().subtract(2, 'hours')
   },
   {
     id: uuid(),
-    name: 'Medium Corporation',
-    imageUrl: '/static/images/products/product_2.png',
+    name: 'Family Supportive Housing',
+    imageUrl: '/static/images/products/shelter1.png',
+    rating:'4.8 stars',
     updatedAt: moment().subtract(2, 'hours')
   },
   {
     id: uuid(),
-    name: 'Slack',
-    imageUrl: '/static/images/products/product_3.png',
+    name: 'CityTeam - Mens Shelter',
+    imageUrl: '/static/images/products/shelter2.png',
+    rating:'4.7 stars',
     updatedAt: moment().subtract(3, 'hours')
   },
   {
     id: uuid(),
-    name: 'Lyft',
-    imageUrl: '/static/images/products/product_4.png',
+    name: 'Montgomery Street Inn',
+    imageUrl: '/static/images/products/shelter4.jpg',
+    rating:'4 stars',
     updatedAt: moment().subtract(5, 'hours')
   },
   {
     id: uuid(),
-    name: 'GitHub',
-    imageUrl: '/static/images/products/product_5.png',
+    name: ' Sobrato House Youth Center',
+    imageUrl: '/static/images/products/shelter5.jpg',
+    rating:'3.5 stars',
     updatedAt: moment().subtract(9, 'hours')
   }
 ];
@@ -52,7 +57,7 @@ const LatestProducts = (props) => (
   <Card {...props}>
     <CardHeader
       subtitle={`${products.length} in total`}
-      title="Latest Products"
+      title="Best Overall Shelter"
     />
     <Divider />
     <List>
