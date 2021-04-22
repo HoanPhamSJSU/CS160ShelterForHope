@@ -1,0 +1,23 @@
+{
+  "name": "shelterfinder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "google-map-react": "^2.1.9",
+    "material-ui": "^0.20.2",
+    "mysql": "^2.18.1",
+    "react-geocode": "^0.2.3",
+    "react-google-autocomplete": "^1.2.6",
+    "react-google-maps": "^9.4.5",
+    "react-use-geolocation": "^0.1.1",
+    "styled-components": "^5.2.3"
+  }
+}
