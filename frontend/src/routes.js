@@ -10,6 +10,7 @@ import SheltersList from 'src/pages/SheltersList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
 import Finder from 'src/pages/Finder';
+import AboutUs from 'src/pages/AboutUs';
 
 const routes = [
   {
@@ -22,6 +23,7 @@ const routes = [
       { path: 'shelters', element: <SheltersList /> },
       { path: 'settings', element: <Settings /> },
       { path: 'finder', element: <Finder /> },
+      { path: 'aboutus', element: <AboutUs /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

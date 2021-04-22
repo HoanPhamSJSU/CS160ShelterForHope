@@ -26,10 +26,14 @@ const CustomerList = () => (
       }}
     >
       <Container maxWidth={false}>
-      <div>          
-      <MyGoogleMap />
+      <div className="main-wrapper">        
+        <MyGoogleMap />
+      </div>
+      <div>  
+      
+
          {/* <GoogleMaps></GoogleMaps> */}
-         <Map></Map>
+         {/* <Map></Map> */}
         {/* <Box sx={{ pt: 3 }}><Map /></Box> */}
         
         {/* <CustomerListToolbar /> */}
