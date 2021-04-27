@@ -1,6 +1,8 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
+import React, {useState, useEffect} from "react";
+import Axios from 'axios';
 import { Formik } from 'formik';
 import {
   Box,
@@ -16,6 +18,42 @@ import GoogleIcon from 'src/icons/Google';
 
 const Login = () => {
   const navigate = useNavigate();
+  Axios.defaults.withCredentials = true;
+  const [email, setEmail] = useState("");
+  const[loginStatus, setLoginStatus] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const submitLogin = () => { Axios.post("http://localhost:5000/Login", { email: email,  password: password
+}).then((response) => {  
+   if(response.data.message) {
+      setLoginStatus(response.data.message)
+   }
+   if(!response.data.message) {
+    navigate('/app/account', { replace: true })
+   }
+});
+};
+
+useEffect(() => {
+  Axios.get("http://localhost:5000/Login").then((response) => {
+    if(response.data.loggedIn == true){
+      navigate('/app/dashboard', { replace: true })
+      setLoginStatus(response.data.user[0].name)
+    }
+    })
+}, [])
+
+
+  const handleEmailChange = e => {
+    console.log("Typed = ${e.target.value}")
+    setEmail(e.target.value)
+  };
+  const handlePassChange = e => {
+    console.log("Typed = ${e.target.value}")
+    setPassword(e.target.value)
+  };
+
 
   return (
     <>
@@ -41,9 +79,9 @@ const Login = () => {
               email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
+            onSubmit={
+              submitLogin 
+            }
           >
             {({
               errors,
@@ -55,6 +93,7 @@ const Login = () => {
               values
             }) => (
               <form onSubmit={handleSubmit}>
+                <h1>{loginStatus}</h1>
                 <Box sx={{ mb: 3 }}>
                   <Typography
                     color="textPrimary"
@@ -128,9 +167,8 @@ const Login = () => {
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange= {handleEmailChange} 
                   type="email"
-                  value={values.email}
                   variant="outlined"
                 />
                 <TextField
@@ -141,9 +179,8 @@ const Login = () => {
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange= {handlePassChange} 
                   type="password"
-                  value={values.password}
                   variant="outlined"
                 />
                 <Box sx={{ py: 2 }}>

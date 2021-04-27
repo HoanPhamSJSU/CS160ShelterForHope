@@ -1,6 +1,8 @@
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
+import React, {useState, useEffect} from "react";
+import Axios from 'axios'
 import { Formik } from 'formik';
 import {
   Box,
@@ -12,12 +14,51 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import { values } from 'lodash';
+import { SetMealSharp } from '@material-ui/icons';
 
 const Register = () => {
-  const navigate = useNavigate();
 
+  Axios.defaults.withCredentials = true;
+
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordconfirm, setPasswordConfirm] = useState("");
+const[loginStatus, setLoginStatus] = useState("");
+
+  const submitRegister = () => { Axios.post("http://localhost:5000/Register", { name: name, email:email, password: password, passwordconfirm:passwordconfirm
+  }).then((response) => {  
+    if(response.data.message) {
+       setLoginStatus(response.data.message)
+    }
+    else {
+     setLoginStatus(response.data.message)
+     navigate('/app/dashboard', { replace: true })
+    }
+ });
+ };
+
+const handleNameChange = e => {
+  console.log("Typed = ${e.target.value}")
+  setName(e.target.value)
+};
+const handleEmailChange = e => {
+  console.log("Typed = ${e.target.value}")
+  setEmail(e.target.value)
+};
+const handlePassChange = e => {
+  console.log("Typed = ${e.target.value}")
+  setPassword(e.target.value)
+};
+const handlePassConfChange = e => {
+  console.log("Typed = ${e.target.value}")
+  setPasswordConfirm(e.target.value)
+};
   return (
     <>
+      <h1>{loginStatus}</h1>
       <Helmet>
         <title>Register | Material Kit</title>
       </Helmet>
@@ -39,18 +80,11 @@ const Register = () => {
               password: '',
               policy: false
             }}
-            validationSchema={
-              Yup.object().shape({
-                email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                firstName: Yup.string().max(255).required('First name is required'),
-                lastName: Yup.string().max(255).required('Last name is required'),
-                password: Yup.string().max(255).required('password is required'),
-                policy: Yup.boolean().oneOf([true], 'This field must be checked')
-              })
+            
+            onSubmit={
+              submitRegister
+
             }
-            onSubmit={() => {
-              navigate('/app/dashboard', { replace: true });
-            }}
           >
             {({
               errors,
@@ -61,7 +95,7 @@ const Register = () => {
               touched,
               values
             }) => (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit= {handleSubmit}>
                 <Box sx={{ mb: 3 }}>
                   <Typography
                     color="textPrimary"
@@ -81,24 +115,16 @@ const Register = () => {
                   error={Boolean(touched.firstName && errors.firstName)}
                   fullWidth
                   helperText={touched.firstName && errors.firstName}
+                  //nameval = {nameval}
+                  onChange={handleNameChange}
+                  //namevalue = {namevalue}
+                  variant = "outlined"
                   label="First name"
                   margin="normal"
                   name="firstName"
+                  type="name"
                   onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.firstName}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(touched.lastName && errors.lastName)}
-                  fullWidth
-                  helperText={touched.lastName && errors.lastName}
-                  label="Last name"
-                  margin="normal"
-                  name="lastName"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.lastName}
+
                   variant="outlined"
                 />
                 <TextField
@@ -109,9 +135,9 @@ const Register = () => {
                   margin="normal"
                   name="email"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange= {handleEmailChange}
                   type="email"
-                  value={values.email}
+                  //value={email}
                   variant="outlined"
                 />
                 <TextField
@@ -122,9 +148,23 @@ const Register = () => {
                   margin="normal"
                   name="password"
                   onBlur={handleBlur}
-                  onChange={handleChange}
+                  onChange={ handlePassChange}
                   type="password"
-                  value={values.password}
+                  //value={values.password}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(touched.passwordconfirm && errors.passwordconfirm)}
+                  fullWidth
+                  helperText={touched.passwordconfirm && errors.passwordconfirm}
+                  label="Confirm Password"
+                  margin="normal"
+                  name="passwordconfirm"
+                  onBlur={handleBlur}
+                  onChange={handlePassConfChange}
+                  //setPasswordConfirm = {onChange}
+                  type="password"
+                  //value={values.passwordconfirm}
                   variant="outlined"
                 />
                 <Box

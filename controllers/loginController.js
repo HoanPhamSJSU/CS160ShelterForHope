@@ -1,20 +1,13 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const{ promisify } = require('util');
 const dotenv = require("dotenv");
 
-
-const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: '123456',
-  database: 'cs160db',
-  port:'5000',
-});
+const connection = require('../config/database');
 
 exports.login = async (req, res) => {
-  console.log("I came through")
+  console.log("I came through");
   try {
     const { email, password } = req.body;
     //console(email)
@@ -24,7 +17,7 @@ exports.login = async (req, res) => {
       });
     } 
 
-    db.query('SELECT * FROM userdata WHERE email = ?', [email], async(error, results) => {
+    connection.query('SELECT * FROM user WHERE email = ?', [email], async(error, results) => {
      // console.log(results);
       if(error) {
         throw error;
@@ -37,27 +30,6 @@ exports.login = async (req, res) => {
       else {
         req.session.user = results;
         res.send({loggedIn: true, user:req.session.user});
-       // console.log(req.session.user);
-        //console.log(req.session.user)
-        //const id = results[0].id;
-        //const token = jwt.sign({id}, //process.env.JWT_SECRET, {
-       //   expiresIn: process.env.JWT_EXPIRES_IN
-       // });
-
-       // req.session.user = results;
-        //console.log("The token is: " + token);
-       /* const cookieOptions = {
-          expires: new Date (
-            Date.now() + process.env.JWT_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
-          ),
-          httpOnly: true
-        }
-        */
-        //res.cookie('jwt', token, cookieOptions);
-        //res.status(200).redirect("/");
-        //res.send({
-        //  message: 'Successful Login'
-        // })
       }
     });
   } catch (error) {
@@ -70,7 +42,7 @@ exports.register = (req, res) => {
 
   const{ name, email, password, passwordconfirm } = req.body;
   
-  db.query('SELECT email FROM userdata WHERE email = ?', [email], async (error, results) => {
+  connection.query('SELECT email FROM user WHERE email = ?', [email], async (error, results) => {
     if(error) {
       console.log(error);
     }
@@ -87,7 +59,7 @@ exports.register = (req, res) => {
     else {
       let hashedPassword = await bcrypt.hash(password, 8);
       console.log(hashedPassword)
-      db.query('INSERT INTO userdata SET ?', { name: name, email: email, password: hashedPassword}, (error, results) => {
+      connection.query('INSERT INTO user SET ?', { name: name, email: email, password: hashedPassword}, (error, results) => {
         if(error){
           console.log(error);
         } else {
@@ -105,7 +77,7 @@ exports.accountUpdate = (req, res) => {
   console.log(req.body);
   try {
     const{curr, name, email, phone, country, state } = req.body;
-    db.query('SELECT id FROM userdata WHERE email = ?', [curr], async(error, results) => {
+    connection.query('SELECT id FROM user WHERE email = ?', [curr], async(error, results) => {
      // console.log(results);
       if(error) {
         throw error;
@@ -114,7 +86,7 @@ exports.accountUpdate = (req, res) => {
         try{
         let idval = await results;
         console.log(idval);
-        db.query('UPDATE userdata SET name = ?,phone = ?, country = ?, state = ? WHERE id = ?', [name, phone, country, state, results[0].id], async(error, results) => {
+        connection.query('UPDATE user SET name = ?,phone = ?, country = ?, state = ? WHERE id = ?', [name, phone, country, state, results[0].id], async(error, results) => {
            if(error) {
              throw error;
            } else {
