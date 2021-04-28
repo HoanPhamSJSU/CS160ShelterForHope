@@ -96,6 +96,21 @@ app.get("/Login", (req, res) => {
 })
 
 
+
+// Hoan Code
+// ROUTES FOR OUR API
+// =============================================================================
+var router = express.Router();        
+
+const {
+  loadShelterController
+} = require('./controllers/shelterController');
+
+app.use('/api', router);
+router.route('/shelters').get(loadEventController);
+// router.route('/shelters/:id').get(loadEventControllerById);
+// Hoan Code
+
 app.listen(5000,() => {
    console.log("Server started on Port 5000");
 })
