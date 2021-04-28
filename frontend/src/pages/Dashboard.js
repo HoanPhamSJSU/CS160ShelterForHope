@@ -12,9 +12,21 @@ import TasksProgress from 'src/components/dashboard//TasksProgress';
 import TotalCustomers from 'src/components/dashboard//TotalCustomers';
 import TotalProfit from 'src/components/dashboard//TotalProfit';
 import TrafficByDevice from 'src/components/dashboard//TrafficByDevice';
+import React, {useState, useEffect} from "react";
+import Axios from 'axios';
 
-const Dashboard = () => (
+const Dashboard = () => {
+  const[loginStatus, setLoginStatus] = useState("");
+  useEffect(() => {
+    Axios.get("http://localhost:5000/Login").then((response) => {
+      if(response.data.loggedIn == true){
+        setLoginStatus("Welcome " +response.data.user[0].name + ", you are logged in!")
+      }
+      })
+  }, [])
+  return (
   <>
+    <h1>{loginStatus}</h1>
     <Helmet>
       <title>Dashboard | Material Kit</title>
     </Helmet>
@@ -25,19 +37,65 @@ const Dashboard = () => (
         py: 3
       }}
     >
-      
       <Container maxWidth={false}>
-      <h1 style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "background.default"
-  }}>WELCOME TO SHELTER FOR HOMELESS </h1>
-        <h1></h1>
         <Grid
           container
           spacing={3}
         >
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}
+          >
+            <Budget />
+          </Grid>
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}
+          >
+            <TotalCustomers />
+          </Grid>
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}
+          >
+            <TasksProgress />
+          </Grid>
+          <Grid
+            item
+            lg={3}
+            sm={6}
+            xl={3}
+            xs={12}
+          >
+            <TotalProfit sx={{ height: '100%' }} />
+          </Grid>
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <Sales />
+          </Grid>
+          <Grid
+            item
+            lg={4}
+            md={6}
+            xl={3}
+            xs={12}
+          >
+            <TrafficByDevice sx={{ height: '100%' }} />
+          </Grid>
           <Grid
             item
             lg={4}
@@ -60,6 +118,6 @@ const Dashboard = () => (
       </Container>
     </Box>
   </>
-);
-
+  )
+};
 export default Dashboard;
