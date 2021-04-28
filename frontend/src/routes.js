@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
+import Dashboard1 from 'src/pages/Dashboard1';
 import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
 import CustomerList from 'src/pages/CustomerList';
@@ -19,6 +20,8 @@ const routes = [
     children: [
       { path: 'account', element: <Account /> },
       { path: 'customers', element: <CustomerList /> },
+      { path: 'dashboard', element: <Dashboard /> },
+      { path: 'dashboard1', element: <Dashboard1 /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'shelters', element: <SheltersList /> },
       { path: 'settings', element: <Settings /> },

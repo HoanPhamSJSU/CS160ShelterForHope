@@ -58,6 +58,11 @@ const items = [
     title: 'Account'
   },
   {
+    href: '/app/dashboard1',
+    icon: BarChartIcon,
+    title: 'dashboard1'
+  },
+  {
     href: '/app/settings',
     icon: SettingsIcon,
     title: 'Settings'
