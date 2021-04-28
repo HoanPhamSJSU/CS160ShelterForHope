@@ -10,11 +10,11 @@ exports.loadShelterController = async (req, res)=> {
     console.log("getting Events"); 
     try {
         console.log("verifying"); 
-        const event = connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
+        const shelter = connection.query('SELECT * from shelters', function (err, rows, fields) {
             if (err) throw err    
             console.log('The solution is: ', rows[0].solution)
           })
-        return res.send(event)
+        return res.send(esheltervent)
 
     } catch (e) {
         console.log("err", e)
@@ -22,19 +22,19 @@ exports.loadShelterController = async (req, res)=> {
     }
 }
 
-exports.loadEventControllerById = async (req, res)=> {
-    const { id } = req.params.id
-    try {
-        console.log("Loading"); 
-        const event = await Event.findById(req.params.id).exec();
+// exports.loadEventControllerById = async (req, res)=> {
+//     const { id } = req.params.id
+//     try {
+//         console.log("Loading"); 
+//         const event = await Event.findById(req.params.id).exec();
 
-        return res.send(event)
+//         return res.send(event)
 
-    } catch (e) {
-        console.log("err", e)
-        return res.status(500).json({ message: e })
-    }
-}
+//     } catch (e) {
+//         console.log("err", e)
+//         return res.status(500).json({ message: e })
+//     }
+// }
 
 
 
