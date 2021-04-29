@@ -60,7 +60,7 @@ const handlePassConfChange = e => {
     <>
       <h1>{loginStatus}</h1>
       <Helmet>
-        <title>Register | Material Kit</title>
+        <title>Register</title>
       </Helmet>
       <Box
         sx={{

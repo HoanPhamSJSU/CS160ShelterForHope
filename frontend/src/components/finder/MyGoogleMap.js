@@ -9,8 +9,8 @@ import AutoComplete from './Autocomplete';
 import Marker from './Marker';
 
 const Wrapper = styled.main`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
 `;
 
 class MyGoogleMap extends Component {

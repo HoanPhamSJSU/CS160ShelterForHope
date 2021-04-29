@@ -21,7 +21,7 @@ const user = {
 const AboutUs = () => (
   <>
     <Helmet>
-      <title>Dashboard | Material Kit</title>
+      <title>About Us</title>
     </Helmet>
     <Box
       sx={{

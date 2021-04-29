@@ -107,7 +107,7 @@ const {
 } = require('./controllers/shelterController');
 
 app.use('/api', router);
-router.route('/shelters').get(loadEventController);
+router.route('/shelters').get(loadShelterController);
 // router.route('/shelters/:id').get(loadEventControllerById);
 // Hoan Code
 

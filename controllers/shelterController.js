@@ -10,11 +10,11 @@ exports.loadShelterController = async (req, res)=> {
     console.log("getting Events"); 
     try {
         console.log("verifying"); 
-        const shelter = connection.query('SELECT * from shelters', function (err, rows, fields) {
+        const shelter = await connection.query('SELECT * from shelters', function (err, rows, fields) {
             if (err) throw err    
             console.log('The solution is: ', rows[0].solution)
           })
-        return res.send(esheltervent)
+        return res.send(shelter)
 
     } catch (e) {
         console.log("err", e)

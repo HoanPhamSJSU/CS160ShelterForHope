@@ -1,14 +1,10 @@
 import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
+import { Box, Container,Grid } from '@material-ui/core';
 import MyGoogleMap from 'src/components/finder/MyGoogleMap';
 import 'src/App.css';
-// import CustomerListResults from 'src/components/customer/CustomerListResults';
-// import CustomerListToolbar from 'src/components/customer/CustomerListToolbar';
-// import customers from 'src/__mocks__/customers';
+import LatestProducts from 'src/components/dashboard//LatestProducts';
+// import Map from 'src/components/finder/MapRender';
 
-import Map from 'src/components/finder/MapRender';
-// import GoogleMaps from 'src/components/finder/SearchBar';
-// import MapContainer from 'src/components/finder/MapContainer';
 
 
 
@@ -16,7 +12,7 @@ const CustomerList = () => (
   <>
   
     <Helmet>
-      <title>Customers | Material Kit</title>
+      <title>Finder</title>
     </Helmet>
     <Box
       sx={{
@@ -26,21 +22,11 @@ const CustomerList = () => (
       }}
     >
       <Container maxWidth={false}>
-      <div className="main-wrapper">        
-        <MyGoogleMap />
+      <div className="main-wrapper"> 
+          <LatestProducts sx={{ height: '100%'}} />
+           <MyGoogleMap />
       </div>
-      <div>  
-      
 
-         {/* <GoogleMaps></GoogleMaps> */}
-         {/* <Map></Map> */}
-        {/* <Box sx={{ pt: 3 }}><Map /></Box> */}
-        
-        {/* <CustomerListToolbar /> */}
-        {/* <Box sx={{ pt: 3 }}>
-          <CustomerListResults customers={customers} />
-        </Box> */}
-        </div>
       </Container>
     </Box>
   </>
