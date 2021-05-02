@@ -3,18 +3,23 @@ const express = require('express');
 // const jwt = require('jsonwebtoken'); 
 // require('dotenv').config(); 
 
+
 const connection = require('../config/database');
 
 exports.loadShelterController = async (req, res)=> {
+    
 
     console.log("getting Events"); 
     try {
-        console.log("verifying"); 
-        const shelter = await connection.query('SELECT * from shelters', function (err, rows, fields) {
-            if (err) throw err    
-            console.log('The solution is: ', rows[0].solution)
+        let sql = 'SELECT * from shelters';
+        connection.query(sql, function(err, data, fields) {
+            if (err) throw err;
+            res.json({
+              status: 200,
+              data,
+              message: "User lists retrieved successfully"
+            })
           })
-        return res.send(shelter)
 
     } catch (e) {
         console.log("err", e)

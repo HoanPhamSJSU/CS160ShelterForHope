@@ -11,13 +11,7 @@ const{ promisify } = require('util');
 const dotenv = require("dotenv");
 const connection = require('./config/database');
 
-connection.connect((error) => {
-  if(error) {
-   console.log(error)
-  } else {
-   console.log("MYSQL Connected ...")
-  }
- });
+
 
 dotenv.config({path: './.env'});
 const app = express();
@@ -50,6 +44,11 @@ app.use(session({
 })
 );
 
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
+});
 
 app.use('/', require('./routes/loginRoute'));
 
@@ -100,6 +99,14 @@ app.get("/Login", (req, res) => {
 // Hoan Code
 // ROUTES FOR OUR API
 // =============================================================================
+const HttpException = require('./utils/HttpException.utils');
+const errorMiddleware = require('./middleware/error.middleware');
+const userRouter = require('./routes/user.route');
+
+// parse requests of content-type: application/json
+// parses incoming requests with JSON payloads
+app.use(express.json());
+
 var router = express.Router();        
 
 const {
@@ -108,6 +115,16 @@ const {
 
 app.use('/api', router);
 router.route('/shelters').get(loadShelterController);
+
+
+// 404 handler
+// 404 error
+
+app.all('*', (req, res, next) => {
+  const err = new HttpException(404, 'Endpoint Not Found');
+  next(err);
+});
+
 // router.route('/shelters/:id').get(loadEventControllerById);
 // Hoan Code
 
